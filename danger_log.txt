@@ -1,0 +1,18 @@
+Danger Log
+
+1. A user should login before doing any operation, e.g., if someone tries to make a new ride without login, a "Anonymous user" error will occur.
+
+2. A driver can select her vehicle type. Each vehicle type should correspond to a unique capacity, while the driver can still enter a random number. This
+  problem is fixed by calling single functions to automatically fill the field.
+
+3. Once a user shares a ride, she can update the number of passenger later. However, the total number of passenger of the ride will keep increasing if she
+  keeps updating the ride. Thus, we made a restriction that each sharer can ONLY update a ride ONCE.
+
+4. A driver cannot pick up her OWN rides. We filter out each driver's own rides so they cannot see them.
+
+5. It is difficult to check the vadility of users' email information. In addition, the email sent by the Web App might be treated as spam.
+
+6. The user cannot choose a past time as the arrivial time of a ride. While this is functionally correct, it is unrealistic. We have not yet fixed this bug.
+
+7. When a user searches an open ride by arrivial date, she might choose an invalid time slot, e.g., a latest time that is earlier than the earliest time, or a date in the past.
+  these can result in no rides being displayed.

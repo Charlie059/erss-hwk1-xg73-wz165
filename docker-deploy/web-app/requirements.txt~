@@ -1,0 +1,4 @@
+psycopg2
+Django~=4.0.1
+Pillow~=9.0.0
+crispy_forms

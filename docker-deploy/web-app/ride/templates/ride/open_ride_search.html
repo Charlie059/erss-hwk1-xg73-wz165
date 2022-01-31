@@ -1,0 +1,36 @@
+{%  extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+   <div class="content-section">
+    <form method="POST">
+        {%  csrf_token %}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Search For Open Sharing Ride</legend>
+            {{ form|crispy }}
+        </fieldset>
+        <div class="form-group">
+            <button class="btn btn-outline-info" type="submit">Search</button>
+        </div>
+    </form>
+   </div>
+      {% for data in data %}
+            <article class="media content-section">
+           <img class="rounded-circle article-img" src="{{ data.owner.image.url }}">
+              <div class="media-body">
+                <div class="article-metadata">
+                    {% if data.owner != user %}
+                        <a class="mr-2" href="{% url 'ride:ride-detail' data.id%}">Share Ride With: {{ data.owner }}</a>
+                    {% endif %}
+                    {% if data.owner == user %}
+                  <a class="mr-2" href="{% url 'ride:ride-detail' data.id%}">{{ data.owner }}</a>
+                    {% endif %}
+                  <small>{{ data.arrive_date|date:"Y F, d, H:m" }}</small>
+                    <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'ride:ride-detail' data.id%}">Ride Detail</a>
+                </div>
+                  <p class="article-content"> Driver: {{ data.driver }}</p>
+                  <p class="article-content"> Current Status: {{ data.status }}</p>
+                  <p class="article-content"> Starting Location: {{ data.starting_location }}</p>
+              </div>
+        </article>
+    {% endfor %}
+{%  endblock content %}

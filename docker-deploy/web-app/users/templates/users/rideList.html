@@ -1,0 +1,28 @@
+{%  extends "base.html" %}
+{% block content %}
+    <h1> Search Result: </h1>
+    {% for ride in rides %}
+           <article class="media content-section">
+           <img class="rounded-circle article-img" src="{{ ride.owner.image.url }}">
+              <div class="media-body">
+                <div class="article-metadata">
+                    {% if ride.owner != user %}
+                        <a class="mr-2" href="{% url 'ride:ride-detail' ride.id%}">Share Ride With: {{ ride.owner }}</a>
+                    {% endif %}
+                    {% if ride.owner == user %}
+                  <a class="mr-2" href="{% url 'ride:ride-detail' ride.id%}">{{ ride.owner }}</a>
+                    {% endif %}
+                  <small>{{ ride.arrive_date}}</small>
+                    <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'ride:ride-detail' ride.id%}">Ride Detail</a>
+                </div>
+                  <p class="article-content"> Driver: {{ ride.driver }}</p>
+                  <p class="article-content"> Current Status: {{ ride.status }}</p>
+                  <p class="article-content"> Starting Location: {{ ride.starting_location }}</p>
+              </div>
+        </article>
+    {% endfor %}
+    {% if rides.count == 0 %}
+        <h1>Looks like nothing here...</h1>
+        <h1>No rider available now</h1>
+    {% endif %}
+{%  endblock content %}

@@ -1,0 +1,48 @@
+{%  extends "base.html" %}
+{% block content %}
+       <article class="media content-section">
+       <img class="rounded-circle article-img" src="{{ object.owner.image.url }}">
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="#">{{ object.owner }}</a>
+              <small class="text-muted">{{ object.arrive_date }}</small>
+                <div>
+                {%  if checkUserUpdateDetail %}
+                        <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'ride:ride-update' object.id %}">Update</a>
+                {%  endif %}
+                {% if checkSharerUpdateDetail %}
+                        <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'ride:ride-sharer-update' object.id %}">Update</a>
+                {% endif %}
+                {% if checkUserJoinRide %}
+                         <a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'ride:ride-join' object.id %}">Join Ride</a>
+                {% endif %}
+                {% if checkDriverConfirmedButton %}
+                         <a class="btn btn-success btn-sm mt-1 mb-1" href="{% url 'ride:ride-confirmed' object.id %}">Confirm Ride</a>
+                {% endif %}
+                {%  if checkDriverCompleteButton %}
+                         <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'ride:ride-completed' object.id %}">Complete Ride</a>
+                {%  endif %}
+                </div>
+            </div>
+                {% if object.status != "OPEN" %}
+                <h3 class="text-muted">Driver Information:</h3>
+                    <h5>Driver name: {{ object.driver.username }}</h5>
+                    <img class="rounded-circle article-img" src="{{ object.driver.image.url }}">
+                    <p class = "text-secondary">{{object.driver.email}}</p>
+                  <p class="article-content">Driver Vehicle Type: {{ object.driver.vehicle_type }}</p>
+                  <p class="article-content">Driver Vehicle Number: {{ object.driver.vehicle_number }}</p>
+                  <p class="article-content">Driver Vehicle Capacity: {{ object.driver.vehicle_capacity }}</p>
+                {% endif %}
+                <h3 class="text-muted">Ride Information:</h3>
+                <p class="article-content">Current Status: {{ object.status }}</p>
+                <p class="article-content">Starting Location: {{ object.starting_location }}</p>
+                <p class="article-content">Destination: {{ object.destination }}</p>
+                <p class="article-content">Is shared: {{ object.share }}</p>
+                <p class="article-content">Arrive Date: {{ object.arrive_date }}</p>
+                <p class="article-content">Special Request: {{ object.special_request }}</p>
+                <p class="article-content">Vehicle Type: {{ object.vehicle_type }}</p>
+
+          </div>
+    </article>
+{%  endblock content %}
+
